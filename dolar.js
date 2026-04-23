@@ -120,7 +120,7 @@ function renderizarGrafica(datosParaMostrar = null) {
                         minRotation: 45
                     } 
                 },
-		y: { type: 'linear', display: true, position: 'left' },
+		y: { type: 'logarithmic', display: true, position: 'left' },
                 y1: { 
                     type: 'linear', 
                     display: true, 
