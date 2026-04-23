@@ -57,6 +57,17 @@ function actualizarRango(dias) {
     renderizarGrafica(datosFiltrados);
 }
 
+function calcularCrecimiento(data) {
+    let crecimientos = [0]; // El primer día no tiene comparación
+    for (let i = 1; i < data.length; i++) {
+        let actual = parseFloat(data[i].price);
+        let anterior = parseFloat(data[i-1].price);
+        let tasa = ((actual - anterior) / anterior) * 100;
+        crecimientos.push(tasa.toFixed(4));
+    }
+    return crecimientos;
+}
+
 function renderizarGrafica(datosParaMostrar = null) {
     const ctx = document.getElementById('precioChart').getContext('2d');
     
@@ -71,6 +82,8 @@ function renderizarGrafica(datosParaMostrar = null) {
         chartInstance.destroy();
     }
 
+    const tasas = calcularCrecimiento(data);
+
     chartInstance = new Chart(ctx, {
         type: 'line',
         data: {
@@ -84,7 +97,15 @@ function renderizarGrafica(datosParaMostrar = null) {
                 pointRadius: labels.length > 50 ? 0 : 3, // Oculta puntos si hay demasiados
                 fill: true,
                 tension: 0.2
-            }]
+            }
+	    ,
+                {
+                    type: 'bar',
+                    label: 'Aceleración (%)',
+                    data: tasas,
+                    backgroundColor: tasas.map(v => v >= 0 ? 'rgba(231, 76, 60, 0.5)' : 'rgba(52, 152, 219, 0.5)'),
+                    yAxisID: 'y1', // Eje secundario para el porcentaje
+                }]
         },
         options: {
             responsive: true,
@@ -98,6 +119,14 @@ function renderizarGrafica(datosParaMostrar = null) {
                         maxRotation: 45,
                         minRotation: 45
                     } 
+                },
+		y: { type: 'linear', display: true, position: 'left' },
+                y1: { 
+                    type: 'linear', 
+                    display: true, 
+                    position: 'right',
+                    grid: { drawOnChartArea: false }, // No ensuciar la gráfica
+                    title: { display: true, text: 'Variación Diaria %' }
                 }
             }
         }
