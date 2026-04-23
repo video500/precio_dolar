@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histórico de Precios</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: sans-serif; max-width: 800px; margin: auto; padding: 20px; }
+        .controls { background: #f4f4f4; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+        canvas { max-width: 100%; }
+        .result { font-weight: bold; margin-top: 10px; color: #2c3e50; }
+    </style>
+</head>
+<body>
+
+    <h2>Historial de Precios</h2>
+    
+    <div class="controls">
+        <label for="date-picker">Consultar precio por fecha:</label>
+        <input type="date" id="date-picker">
+        <button onclick="consultarPrecio()">Consultar</button>
+        <div id="resultado-busqueda" class="result"></div>
+    </div>
+<div class="controls">
+    <span>Ver rango:</span>
+    <button onclick="actualizarRango(365)">Anual</button>
+    <button onclick="actualizarRango(180)">6 Meses</button>
+    <button onclick="actualizarRango(90)">3 Meses</button>
+    <button onclick="actualizarRango(30)">Último Mes</button>
+    <button onclick="actualizarRango(0)">Todo</button>
+</div>
+    <canvas id="precioChart"></canvas>
+
+    <script src="dolar.js">
+</script>
+</body>
+</html>
