@@ -101,7 +101,7 @@ function renderizarGrafica(datosParaMostrar = null) {
 	    ,
                 {
                     type: 'bar',
-                    label: 'Aceleración (%)',
+                    label: 'Variación (%)',
                     data: tasas,
                     backgroundColor: tasas.map(v => v >= 0 ? 'rgba(231, 76, 60, 0.5)' : 'rgba(52, 152, 219, 0.5)'),
                     yAxisID: 'y1', // Eje secundario para el porcentaje
