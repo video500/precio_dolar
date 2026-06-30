@@ -68,6 +68,14 @@ function calcularCrecimiento(data) {
     return crecimientos;
 }
 
+function sumarVariaciones(data){
+    let suma = 0;
+    data.forEach( function (item) {
+        suma = suma + (Number(item) || 0);
+    })
+    return suma.toFixed(4);
+}
+
 function renderizarGrafica(datosParaMostrar = null) {
     const ctx = document.getElementById('precioChart').getContext('2d');
     
@@ -83,6 +91,7 @@ function renderizarGrafica(datosParaMostrar = null) {
     }
 
     const tasas = calcularCrecimiento(data);
+    const suma= sumarVariaciones(tasas);
 
     chartInstance = new Chart(ctx, {
         type: 'line',
@@ -131,6 +140,7 @@ function renderizarGrafica(datosParaMostrar = null) {
             }
         }
     });
+    document.getElementById('suma_variacion').innerText = suma;
 }
 
 function consultarPrecio() {
